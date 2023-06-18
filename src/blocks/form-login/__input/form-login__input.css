@@ -1,0 +1,23 @@
+.form-login__input {
+  box-sizing: border-box;
+  min-height: 27px;
+  min-width: 358px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: calc(17 / 14);
+  color: #ccc;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.form-login__input:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.form-login__input:focus {
+  outline: none;
+  color: #fff;
+}

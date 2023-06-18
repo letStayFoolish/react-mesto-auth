@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const Popup = ({ isOpen, onClose, children }) => {
   // Function to close popup on Escape button

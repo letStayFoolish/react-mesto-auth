@@ -20,6 +20,8 @@
 /* HEADER */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__list/header__list.css);
+@import url(./blocks/header/__link/header__link.css);
 
 /* PROFILE */
 @import url(./blocks/profile/profile.css);
@@ -65,6 +67,8 @@
 @import url(./blocks/popup/__input-error/popup__input-error_active.css);
 @import url(./blocks/popup/__button/popup__button.css);
 @import url(./blocks/popup/__button/popup__button_disabled.css);
+@import url(./blocks/popup/__sign/popup__sign.css);
+@import url(./blocks/popup/__text/popup__text.css);
 
 /* POPUP INPUTS */
 @import url(./blocks/popup/__input/popup__input.css);
@@ -86,3 +90,24 @@
 @import url(./blocks/popup/__button/_type/popup__button_type_areyousure.css);
 /* POPUP AVATAR IMAGE */
 @import url(./blocks/popup/_type/_avatar-image/popup_type_avatar-image.css);
+/* POPUP INFO TOOL TIP */
+@import url(./blocks/popup/_type/_info-tool-tip/popup_type_info-tool-tip.css);
+/* LOGIN */
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__heading/login__heading.css);
+
+/* FORM-LOGIN */
+@import url(./blocks/form-login/__fieldset/form-login__fieldset.css);
+@import url(./blocks/form-login/__input/form-login__input.css);
+@import url(./blocks/form-login/__button/form-login__button.css);
+
+/* REGISTER */
+@import url(./blocks/register/register.css);
+@import url(./blocks/register/__heading/register__heading.css);
+
+/* FORM-REGISTER */
+@import url(./blocks/form-register/__fieldset/form-register__fieldset.css);
+@import url(./blocks/form-register/__input/form-register__input.css);
+@import url(./blocks/form-register/__button/form-register__button.css);
+@import url(./blocks/form-register/__link/form-register__link.css);
+@import url(./blocks/form-register/__text/link-register__text.css);

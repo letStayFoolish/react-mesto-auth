@@ -16,7 +16,7 @@ export default function ImagePopup({ card, onClose }) {
               type='button'
               onClick={onClose}
               className='popup__close-btn popup__close-btn_type_image'
-              arialabel='Кнопка закрития модального окна'
+              arialabel='Кнопка закрытия модального окна'
             ></button>
             <img
               alt={card && card.alt}

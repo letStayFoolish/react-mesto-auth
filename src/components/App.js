@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import Register from './Register';
+import Login from './Login';
+import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -20,6 +25,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   // State to help us with opening/closing popup for change profile image:
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+  // State to help us with opening/closing popup info tool tip:
+  const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] = useState(false);
   // State to help us with open full-screen image on-click, depending what card is selected:
   const [selectedCard, setSelectedCard] = useState(null);
   // State to set default values for username, user occupation & user avatar(as a default there should not be an image):
@@ -74,6 +81,10 @@ function App() {
     setRemovedCard(card);
     setIsConfirmationPopupOpen(true);
   }
+  // Handler-function to toggle true/false on popup to inform user while logging in/singing up, so it opens or closes:
+  function handleInfoToolTipPopupOpen(card) {
+    setIsInfoToolTipPopupOpen(true);
+  }
 
   // Function to add/remove card like, requesting and reciving respons from api:
   const handleCardLike = (card) => {
@@ -110,6 +121,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
     setIsConfirmationPopupOpen(false);
+    setIsInfoToolTipPopupOpen(false);
   }
   // Function to remove card, requesting and receiving response from api
   const handleCardDelete = (card) => {
@@ -195,21 +207,40 @@ function App() {
   // Handler to change button text while deleting card
   const [isSavingConfirmationPopup, setIsSavingConfirmationPopup] =
     useState(false);
-
+  // !!! Change default state isLoggedIn: false -> null
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='wrapper'>
           <Header />
-          <Main
-            onCardClick={setSelectedCard}
-            onEditProfile={handleEditProfilePopupOpen}
-            onAddPlace={handleAddPlacePopupOpen}
-            onEditAvatar={handleEditAvatarPopupOpen}
-            onCardLike={handleCardLike}
-            onCardDelete={handleConfirmationPopupOpen}
-            cards={cards}
-          />
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <ProtectedRoute
+                  element={Main}
+                  isLoggedIn={isLoggedIn}
+                  onCardClick={setSelectedCard}
+                  onEditProfile={handleEditProfilePopupOpen}
+                  onAddPlace={handleAddPlacePopupOpen}
+                  onEditAvatar={handleEditAvatarPopupOpen}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleConfirmationPopupOpen}
+                  cards={cards}
+                />
+              }
+            />
+            <Route
+              path='/sign-up'
+              element={isLoggedIn ? <Navigate to='/' /> : <Register />}
+            />
+            <Route
+              path='/sign-in'
+              element={isLoggedIn ? <Navigate to='/' /> : <Login />}
+            />
+          </Routes>
           <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -235,6 +266,11 @@ function App() {
             isDeleting={isSavingConfirmationPopup}
             card={removedCard}
             onCardDelete={handleCardDelete}
+          />
+          <InfoTooltip
+            isOpen={isInfoToolTipPopupOpen}
+            onClose={closeAllPopups}
+            isSuccess={isSuccess}
           />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>

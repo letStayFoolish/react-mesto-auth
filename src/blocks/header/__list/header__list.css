@@ -1,0 +1,7 @@
+.header__list {
+  display: inline-flex;
+  margin: 45px 0 41px;
+  text-align: center;
+  list-style-type: none;
+  padding: 0;
+}

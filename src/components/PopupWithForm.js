@@ -24,7 +24,7 @@ export default function PopupWithForm({
             type='button'
             onClick={onClose}
             className={`popup__close-btn popup__close-btn_type_${name}`}
-            aria-label='Кнопка закрития модального окна'
+            aria-label='Кнопка закрытия модального окна'
           ></button>
           <h2 className='popup__title'>{title}</h2>
           <form
