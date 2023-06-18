@@ -1,0 +1,28 @@
+.container {
+    padding: 0 200px;
+}
+@media (max-width: 1180px) {
+    .container {
+        padding: 0 150px;
+    }
+}
+@media (max-width: 1054px) {
+    .container {
+        padding: 0 100px;
+    }
+}
+@media (max-width: 854px) {
+    .container {
+        padding: 0 50px;
+    }
+}
+@media (max-width: 754px) {
+    .container {
+        padding: 0 30px;
+    }
+}
+@media (max-width: 342px) {
+    .container {
+        padding: 0 19px;
+    }
+}

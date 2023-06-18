@@ -1,0 +1,4 @@
+.card__remove-btn_disable {
+  opacity: 0;
+  visibility: hidden;
+}

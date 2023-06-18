@@ -1,0 +1,13 @@
+.popup__form {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+}
+.popup__form > *:first-child {
+    margin-top: 50px;
+}
+@media (max-width: 320px) {
+    .popup__form > *:first-child {
+        margin-top: 75px;
+    }
+}

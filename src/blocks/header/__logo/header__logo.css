@@ -1,0 +1,15 @@
+.header__logo {
+    display: inline-flex;
+    margin: 45px 0 41px;
+    max-width: 142px;
+    min-height: 33px;
+    background: url(../../../images/header-logo.svg) no-repeat left;
+    background-size: 142px 33px;
+}
+@media (max-width: 342px) {
+    .header__logo {
+        margin: 28px 0 31.6px 27px;
+        min-height: 24px;
+        background-size: 103.7px 24px;
+    }
+}

@@ -1,0 +1,21 @@
+.profile__edit-avatar {
+  /* visibility: hidden; */
+  box-sizing: border-box;
+  background: url(../../../images/editAvatar.png) no-repeat;
+  background-size: 26px 26px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 5;
+  top: 47px;
+  right: 47px;
+  transition: all 0.35s ease-in;
+  opacity: 0;
+}
+
+.profile__edit-avatar:hover {
+  opacity: 1;
+}

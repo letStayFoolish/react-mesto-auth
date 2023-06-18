@@ -1,0 +1,12 @@
+.footer__licence {
+    font-size: 18px;
+    line-height: 122%;
+    color: #545454;
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 320px) {
+    .footer__licence {
+        font-size: 14px;
+    }
+}

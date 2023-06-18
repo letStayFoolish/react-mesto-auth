@@ -1,0 +1,18 @@
+.page {
+    margin: 0 auto;
+    background-color: #000;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    box-sizing: border-box;
+    /* Сглаживание */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Подгонка размера текста */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-osx-text-size-adjust: 100%;
+    /* Рендеринг */
+    text-rendering: optimizeLegibility;
+}

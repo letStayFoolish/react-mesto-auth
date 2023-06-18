@@ -1,0 +1,12 @@
+.card__image {
+    object-fit: cover;
+    background-color: #000;
+    object-position: top left;
+    border-top-right-radius:10px;
+    border-top-left-radius: 10px;
+    max-width: 282px;
+    min-width: 100%;
+    min-height: 282px;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+}

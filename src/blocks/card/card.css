@@ -1,0 +1,7 @@
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    max-height: 361px;
+    max-width: 100%;
+    position: relative;
+}

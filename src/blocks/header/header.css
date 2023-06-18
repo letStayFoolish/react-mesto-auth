@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    min-height: 119px;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-bottom: 1px solid rgba(54, 54, 54, .7);
+}
+@media (max-width: 1180px) {
+    .header {
+        margin: 0 150px;
+    }
+}
+@media (max-width: 1054px) {
+    .header {
+        margin: 0 100px;
+    }
+}
+@media (max-width: 854px) {
+    .header {
+        margin: 0 50px;
+    }
+}
+@media (max-width: 754px) {
+    .header {
+        margin: 0 30px;
+    }
+}
+@media (max-width: 342px) {
+    .header {
+        margin: 0;
+        min-height: 84px;
+    }
+}

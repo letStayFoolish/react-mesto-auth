@@ -1,0 +1,6 @@
+.popup_type_areyousure {
+  background: rgba(0, 0, 0, .5);
+}
+.popup_type_areyousure .popup__title {
+  margin: 0 0 38px 0;
+}
