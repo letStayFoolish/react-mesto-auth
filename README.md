@@ -8,6 +8,8 @@ By _**Nemanja Karaklajic**_
 
 <hr>
 <img src="./src/images/Screen.png" width="100%">
+<img src="./src/images/SIGN_UP.png" width="100%">
+<img src="./src/images/LOG_IN.png" width="100%">
 <br>
 <hr>
 
@@ -33,7 +35,8 @@ Just clone or download. Once cloned or downloaded files, in your IDE type `npm s
 ## This project is also hosted at
 - [GitHub](https://github.com/letStayFoolish/mesto-react)
 ## Layout design:
-- [Figma](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?node-id=0-1&t=yFci4NbLdIvZT794-0)
+- [Figma 1](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?node-id=0-1&t=yFci4NbLdIvZT794-0)
+- [Figma 2](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1)
 
 
 ## License
