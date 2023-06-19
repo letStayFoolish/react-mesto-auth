@@ -109,5 +109,8 @@
 @import url(./blocks/form-register/__fieldset/form-register__fieldset.css);
 @import url(./blocks/form-register/__input/form-register__input.css);
 @import url(./blocks/form-register/__button/form-register__button.css);
-@import url(./blocks/form-register/__link/form-register__link.css);
-@import url(./blocks/form-register/__text/link-register__text.css);
+@import url(./blocks/form-register/__signin/form-register__signin.css);
+
+/* SIGN-IN */
+@import url(./blocks/signin/__link/signin__link.css);
+@import url(./blocks/signin/__text/signin__text.css);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -14,20 +14,37 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmOnDelete from './ConfirmOnDelete';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
+import * as auth from '../utils/auth';
+
 
 function App() {
   // React Hooks - States
-  // State to help us with opening/closing popup for profile editing:
+  // Handler to change button text while saving user information
+  const [isSavingEditProfilePopup, setIsSavingEditProfilePopup] =
+      useState(false);
+  // Handler to change button text while adding new card(place)
+  const [isSavingAddPlacePopup, setIsSavingAddPlacePopup] = useState(false);
+  // Handler to change button text while saving user information
+  const [isSavingEditAvatarPopup, setIsSavingEditAvatarPopup] = useState(false);
+  // Handler to change button text while deleting card
+  const [isSavingConfirmationPopup, setIsSavingConfirmationPopup] =
+      useState(false);
+  // Handler to change user's state logged-in or not:
+  // !!! Change default state isLoggedIn: false -> null
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Handler to change popup-info text and image based on registration success:
+  const [onSuccess, setOnSuccess] = useState(false)
+  // State to open/close popup with information about success registration:
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false)
+  // State to open/close popup for profile editing:
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  // State to help us with opening/closing popup for adding new place:
+  // State to open/close popup for adding new place:
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  // State to help us with opening/closing popup for change profile image:
+  // State to open/close popup for change profile image:
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  // State to help us with opening/closing popup for change profile image:
+  // State to open/close popup for change profile image:
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
-  // State to help us with opening/closing popup info tool tip:
-  const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] = useState(false);
-  // State to help us with open full-screen image on-click, depending what card is selected:
+  // State to open/close full-screen image on-click, depending on what card is selected:
   const [selectedCard, setSelectedCard] = useState(null);
   // State to set default values for username, user occupation & user avatar(as a default there should not be an image):
   const [currentUser, setCurrentUser] = useState({
@@ -38,15 +55,15 @@ function App() {
   // State to set default card array as an empty array:
   const [cards, setCards] = useState([]);
   const [removedCard, setRemovedCard] = useState(null);
+
+  const navigate = useNavigate()
   // React Hook - state Effect, using this state, firstly we do:
   // 1. Fetching profile and card data as well, all at once,
   // 2. Once we got response from API, we are setting profile information: username, user occupation, user avatar and card information (name, link, id, ...)
   // As a second argument of useEffect State, we set an empty array '[]', so this shall be called only once as we got in or refresh a page.
-
   useEffect(() => {
     const userInformationPromise = api.getUserInformation();
     const initialCardsPromise = api.getInitialCards();
-
     Promise.all([userInformationPromise, initialCardsPromise])
       .then(([userInformation, cardsInformation]) => {
         setCurrentUser({
@@ -63,7 +80,7 @@ function App() {
         )
       );
   }, []);
-
+  // Handler functions
   // Handler-function to toggle true/false on popup for profile editing, so it opens or closes:
   function handleEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
@@ -81,11 +98,10 @@ function App() {
     setRemovedCard(card);
     setIsConfirmationPopupOpen(true);
   }
-  // Handler-function to toggle true/false on popup to inform user while logging in/singing up, so it opens or closes:
-  function handleInfoToolTipPopupOpen(card) {
-    setIsInfoToolTipPopupOpen(true);
+  // Handler-function
+  function handleInfoTooltipPopupOpen() {
+    setIsInfoTooltipPopupOpen(true)
   }
-
   // Function to add/remove card like, requesting and reciving respons from api:
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
@@ -113,7 +129,6 @@ function App() {
         );
     }
   };
-
   // Function to close all popups on-click on close button
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -121,7 +136,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
     setIsConfirmationPopupOpen(false);
-    setIsInfoToolTipPopupOpen(false);
+    setIsInfoTooltipPopupOpen(false)
   }
   // Function to remove card, requesting and receiving response from api
   const handleCardDelete = (card) => {
@@ -196,20 +211,20 @@ function App() {
       )
       .finally(() => setIsSavingAddPlacePopup(false));
   }
+  // Function ...
+  function onSignup(email, password) {
+    auth
+        .register(email, password)
+        .then(() => {
+          navigate('/sign-in', {replace: true})
+          setOnSuccess(true)
+        })
+        .catch(() => {
+          setOnSuccess(false)
+        })
+        .finally(handleInfoTooltipPopupOpen)
+  }
 
-  // Handler to change button text while saving user information
-  const [isSavingEditProfilePopup, setIsSavingEditProfilePopup] =
-    useState(false);
-  // Handler to change button text while adding new card(place)
-  const [isSavingAddPlacePopup, setIsSavingAddPlacePopup] = useState(false);
-  // Handler to change button text while saving user information
-  const [isSavingEditAvatarPopup, setIsSavingEditAvatarPopup] = useState(false);
-  // Handler to change button text while deleting card
-  const [isSavingConfirmationPopup, setIsSavingConfirmationPopup] =
-    useState(false);
-  // !!! Change default state isLoggedIn: false -> null
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSuccess, setSuccess] = useState(false);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -234,11 +249,29 @@ function App() {
             />
             <Route
               path='/sign-up'
-              element={isLoggedIn ? <Navigate to='/' /> : <Register />}
+              element={
+                isLoggedIn ? (
+                  <Navigate to='/' />
+                ) : (
+                  <Register
+                    onClose={closeAllPopups}
+                    onSignup={onSignup}
+                  />
+                )
+              }
             />
             <Route
               path='/sign-in'
-              element={isLoggedIn ? <Navigate to='/' /> : <Login />}
+              element={
+                isLoggedIn ? (
+                  <Navigate to='/' />
+                ) : (
+                  <Login
+                    onClose={closeAllPopups}
+                    onSignup={onSignup}
+                  />
+                )
+              }
             />
           </Routes>
           <Footer />
@@ -267,12 +300,8 @@ function App() {
             card={removedCard}
             onCardDelete={handleCardDelete}
           />
-          <InfoTooltip
-            isOpen={isInfoToolTipPopupOpen}
-            onClose={closeAllPopups}
-            isSuccess={isSuccess}
-          />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={onSuccess} />
         </div>
       </div>
     </CurrentUserContext.Provider>

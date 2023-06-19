@@ -1,0 +1,16 @@
+.signin__link {
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: calc(17 / 14);
+}
+.signin__link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}

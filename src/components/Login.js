@@ -1,4 +1,4 @@
-const Login = () => {
+const Login = ({ isOpen, onClose, onRegister }) => {
   return (
     <div className='login'>
       <h2 className='login__heading heading'>Вход</h2>

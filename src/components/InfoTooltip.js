@@ -7,7 +7,6 @@ const InfoTooltip = ({ onClose, isOpen, isSuccess }) => {
       className={`popup popup_type_info-tool-tip ${
         isOpen ? 'popup_opened' : ''
       }`}
-      // className='popup popup_opened popup_type_info-tool-tip'
     >
       <div className='popup__container'>
         <div className='popup__body'>
