@@ -1,43 +1,97 @@
-## PLACE 
+# PLACE 
 
-By _**Nemanja Karaklajic**_
+### *Educational purpose project from [Яндекс.Практикум](https://practicum.yandex.ru/web/)*
 
 <hr>
 
 ### A simple interactive single-page service written on React.js
 
+## Functionality:
+
+- Edit user's avatar and profile information;
+- Add photos and likes;
+- Remove photos and likes;
+- Open full-screen photos;
+- User authorization and registration.
+
 <hr>
+
+## Screenshots:
+<details><summary><b>Show all</b></summary>
 <img src="./src/images/Screen.png" width="100%">
 <img src="./src/images/SIGN_UP.png" width="100%">
 <img src="./src/images/LOG_IN.png" width="100%">
-<br>
+</details>
+
 <hr>
 
 ## Technologies Used
 
-* _HTML 5 / JSX_
-* _CSS_
-* _JS / OOP_
-* _React.js_
-* _BEM Methodology_
-* _Webpack_
-
-Project files are bundled using [Webpack](https://webpack.js.org/) technology, which takes the dependencies and generates a dependency graph allowing web developers to use a modular approach for their web application development purposes.
-
-## Description
-
-_Here users are able to place and remove their pictures, as also as put likes on them._
+- HTML5;
+- CSS3:
+    - Flexbox;
+    - Grid Layout;
+    - Positioning;
+    - Adaptive UI;
+    - Media Queries;
+- BEM methodology (nested/flat);
+- JavaScript:
+    - CamelCase style;
+    - Object-oriented programming;
+    - Promise, asynchronous functions;
+    - API (Application Programming Interface);
+- Webpack:
+    - Project files are bundled using [Webpack](https://webpack.js.org/) technology, which takes the dependencies and generates a dependency graph allowing web developers to use a modular approach for their web application development purposes.
+- React JS:
+    - Create React App;
+    - JSX;
+    - Functional components;
+    - Hooks.
 
 ## Usage
 
-Just clone or download. Once cloned or downloaded files, in your IDE type `npm start`, and you are ready to go. Have fun!
+Clone repository:
+
+    git clone https://github.com/letStayFoolish/react-mesto-auth
+
+Install dependencies:
+
+    npm install
+
+Run app:
+
+    npm run start
+
+## Language:
+
+- JavaScript
+
+## Libraries / Environment:
+
+- ReactJS
+
+## Figma designs:
+
+- [Figma 4](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4);
+- [Figma 5](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5);
+- [Figma 6-7](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6);
+- [Figma 9](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript-9-sprint);
+- [Figma 12](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/JavaScript.-Sprint-12).
+
+## Project's checklists:
+
+- [Checklist 4](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-4/index.html);
+- [Checklist 5](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-5/index.html);
+- [Checklist 6](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-6/index.html);
+- [Checklist 7](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-7/index.html);
+- [Checklist 8](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-8/index.html);
+- [Checklist 9](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-9/index.html);
+- [Checklist 10](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-10/index.html);
+- [Checklist 11](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-11/index.html);
+- [Checklist 12](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-12/index.html).
 
 ## This project is also hosted at
 - [GitHub](https://github.com/letStayFoolish/mesto-react)
-## Layout design:
-- [Figma 1](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?node-id=0-1&t=yFci4NbLdIvZT794-0)
-- [Figma 2](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1)
-
 
 ## License
 
