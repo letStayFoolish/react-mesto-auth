@@ -1,8 +1,14 @@
 .register {
   display: flex;
   flex-direction: column;
-  flex: 1 1 100%;
   max-width: 388px;
-  margin: 0 auto;
+  margin: 0 auto auto;
   padding: 60px 15px 0;
+}
+
+@media (max-width: 430px) {
+  .register {
+    max-width: 290px;
+    padding-top: 40px;
+  }
 }

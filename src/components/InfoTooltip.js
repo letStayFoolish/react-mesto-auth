@@ -1,7 +1,7 @@
 import imageOnSuccess from '../images/success.png';
 import imageOnFail from '../images/fail.png';
 
-const InfoTooltip = ({ onClose, isOpen, isSuccess, text }) => {
+const InfoTooltip = ({ onClose, isOpen, isSuccess }) => {
   return (
     <div
       className={`popup popup_type_info-tool-tip ${
@@ -28,7 +28,7 @@ const InfoTooltip = ({ onClose, isOpen, isSuccess, text }) => {
           <h2 className='popup__text'>
             {isSuccess
               ? 'Вы успешно зарегистрировались!'
-              : 'Что-то пошло не так! Попробуйте ещё раз'}
+              : 'Что-то пошло не так! Попробуйте ещё раз.'}
           </h2>
         </div>
       </div>

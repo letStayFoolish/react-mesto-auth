@@ -21,3 +21,9 @@
   outline: none;
   color: #fff;
 }
+
+@media (max-width: 430px) {
+  .form-login__input {
+    min-width: 260px;
+  }
+}

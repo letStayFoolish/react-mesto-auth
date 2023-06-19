@@ -6,3 +6,11 @@
   padding: 0;
   margin: 0 auto 50px;
 }
+
+@media (max-width: 430px) {
+  .login__heading {
+    font-size: 20px;
+    line-height: calc(24 / 20);
+    margin-bottom: 40px;
+  }
+}
