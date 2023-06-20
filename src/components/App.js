@@ -1,41 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import Register from './Register';
-import Login from './Login';
-import InfoTooltip from './InfoTooltip';
-import ProtectedRoute from './ProtectedRoute';
-import ImagePopup from './ImagePopup';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import ConfirmOnDelete from './ConfirmOnDelete';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/api';
-import * as auth from '../utils/auth';
-
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import Register from "./Register";
+import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
+import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import ConfirmOnDelete from "./ConfirmOnDelete";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import api from "../utils/api";
+import * as auth from "../utils/auth";
 
 function App() {
-  // React Hooks - States
+  // React Hooks - useState:
   // Handler to change button text while saving user information
   const [isSavingEditProfilePopup, setIsSavingEditProfilePopup] =
-      useState(false);
+    useState(false);
+  // Handler to change button text Log-in -> Logging-in:
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  // Handler to change button text Sign-up -> Signing-up:
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  // Handler to change button text Log-in -> Logging-in:
   // Handler to change button text while adding new card(place)
   const [isSavingAddPlacePopup, setIsSavingAddPlacePopup] = useState(false);
   // Handler to change button text while saving user information
   const [isSavingEditAvatarPopup, setIsSavingEditAvatarPopup] = useState(false);
   // Handler to change button text while deleting card
   const [isSavingConfirmationPopup, setIsSavingConfirmationPopup] =
-      useState(false);
+    useState(false);
   // Handler to change user's state logged-in or not:
   // !!! Change default state isLoggedIn: false -> null
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // Handler to change popup-info text and image based on registration success:
-  const [onSuccess, setOnSuccess] = useState(false)
+  const [onSuccess, setOnSuccess] = useState(false);
+  // Handler to get email from API data to show it on main page (header):
+  const [emailShow, setEmailShow] = useState(null);
   // State to open/close popup with information about success registration:
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false)
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   // State to open/close popup for profile editing:
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   // State to open/close popup for adding new place:
@@ -48,16 +54,17 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   // State to set default values for username, user occupation & user avatar(as a default there should not be an image):
   const [currentUser, setCurrentUser] = useState({
-    name: 'Chili',
-    about: 'Outdoorist | Traveler | Student',
-    avatar: '',
+    name: "Chili",
+    about: "Outdoorist | Traveler | Student",
+    avatar: "",
   });
   // State to set default card array as an empty array:
   const [cards, setCards] = useState([]);
+  // State to remove card:
   const [removedCard, setRemovedCard] = useState(null);
-
-  const navigate = useNavigate()
-  // React Hook - state Effect, using this state, firstly we do:
+  // Navigate state to navigate user to another page:
+  const navigate = useNavigate();
+  // React Hook - useEffect, using this hook, firstly we do:
   // 1. Fetching profile and card data as well, all at once,
   // 2. Once we got response from API, we are setting profile information: username, user occupation, user avatar and card information (name, link, id, ...)
   // As a second argument of useEffect State, we set an empty array '[]', so this shall be called only once as we got in or refresh a page.
@@ -76,11 +83,11 @@ function App() {
       })
       .catch((error) =>
         console.error(
-          `Error while requesting to GET profile and cards information from API: ${error}`
+          `Error while requesting to GET profile and cards information from API: ${error.message}`
         )
       );
   }, []);
-  // Handler functions
+  // Handler functions:
   // Handler-function to toggle true/false on popup for profile editing, so it opens or closes:
   function handleEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
@@ -100,9 +107,13 @@ function App() {
   }
   // Handler-function
   function handleInfoTooltipPopupOpen() {
-    setIsInfoTooltipPopupOpen(true)
+    setIsInfoTooltipPopupOpen(true);
   }
-  // Function to add/remove card like, requesting and reciving respons from api:
+  // Function to change state isLoggingIn from false to true:
+  function handleIsLoggedIn() {
+    setIsLoggedIn(true);
+  }
+  // Function to add/remove card like, requesting and receiving response from api:
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
     if (isLiked) {
@@ -112,7 +123,9 @@ function App() {
           setCards((state) => state.map((c) => (c._id === card._id ? res : c)));
         })
         .catch((err) =>
-          console.error(`Error while requesting to DELETE like on API: ${err}`)
+          console.error(
+            `Error while requesting to DELETE like on API: ${err.message}`
+          )
         );
     } else {
       api
@@ -124,7 +137,7 @@ function App() {
         })
         .catch((err) =>
           console.error(
-            `Error while requesting to PUT card like on API: ${err}`
+            `Error while requesting to PUT card like on API: ${err.message}`
           )
         );
     }
@@ -136,7 +149,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
     setIsConfirmationPopupOpen(false);
-    setIsInfoTooltipPopupOpen(false)
+    setIsInfoTooltipPopupOpen(false);
   }
   // Function to remove card, requesting and receiving response from api
   const handleCardDelete = (card) => {
@@ -151,7 +164,7 @@ function App() {
       })
       .catch((error) =>
         console.error(
-          `Error while requesting to DELETE card from API: ${error}`
+          `Error while requesting to DELETE card from API: ${error.message}`
         )
       )
       .finally(() => setIsSavingConfirmationPopup(false));
@@ -172,7 +185,7 @@ function App() {
       })
       .catch((error) =>
         console.error(
-          `Error while requesting to PATCH new user info on API: ${error}`
+          `Error while requesting to PATCH new user info on API: ${error.message}`
         )
       )
       .finally(() => setIsSavingEditProfilePopup(false));
@@ -190,7 +203,7 @@ function App() {
       })
       .catch((error) =>
         console.error(
-          `Error while requesting to PATCH new user avatar on API: ${error}`
+          `Error while requesting to PATCH new user avatar on API: ${error.message}`
         )
       )
       .finally(() => setIsSavingEditAvatarPopup(false));
@@ -206,33 +219,88 @@ function App() {
       })
       .catch((error) =>
         console.error(
-          `Error while requesting to PUT new card(place) on API: ${error}`
+          `Error while requesting to PUT new card(place) on API: ${error.message}`
         )
       )
       .finally(() => setIsSavingAddPlacePopup(false));
   }
-  // Function ...
+  // Function to send new user's email and password to API so we could send user on log-in page on a successful registration
   function onSignup(email, password) {
+    if (!email || !password) {
+      // window.alert('Please fill in all fields')
+      return;
+    }
+    setIsSigningUp(true);
     auth
-        .register(email, password)
-        .then(() => {
-          navigate('/sign-in', {replace: true})
-          setOnSuccess(true)
-        })
-        .catch(() => {
-          setOnSuccess(false)
-        })
-        .finally(handleInfoTooltipPopupOpen)
+      .register(email, password)
+      .then(() => {
+        navigate("/sign-in", { replace: true });
+        setOnSuccess(true);
+      })
+      .catch((error) => {
+        setOnSuccess(false);
+        console.error(`Error: ${error.message}`);
+      })
+      .finally(() => {
+        handleInfoTooltipPopupOpen();
+        setIsSigningUp(false);
+      });
+  }
+  // Function to make user get logged-in
+  function onSignin(email, password) {
+    if (!email || !password) {
+      return;
+    }
+    setIsLoggingIn(true);
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        navigate("/", { replace: true });
+        setIsLoggedIn(true);
+        setEmailShow(email);
+      })
+      .catch((error) => console.error(`Error: ${error.message}`))
+      .finally(() => setIsLoggingIn(false));
+  }
+  // Function to keep user logged-in if his token is already stored:
+  const checkToken = () => {
+    const token = localStorage.getItem("jwt");
+    auth
+      .getContent(token)
+      .then((data) => {
+        if (!data) {
+          return;
+        }
+        setIsLoggedIn(true);
+        navigate("/", { replace: true });
+        setEmailShow(data.data.email);
+      })
+      .catch((error) => {
+        setIsLoggedIn(false);
+        console.error(`Error: ${error.message}`);
+      });
+  };
+  // State to authenticate user's token:
+  useEffect(() => {
+    checkToken();
+  }, []);
+  // Function handle on sign-out button pressed:
+  function handleSignOut() {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    navigate("/sign-in", { replace: true });
+    setEmailShow("");
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className='page'>
-        <div className='wrapper'>
-          <Header />
+      <div className="page">
+        <div className="wrapper">
+          <Header emailShow={emailShow} handleSignOut={handleSignOut} />
           <Routes>
             <Route
-              path='/'
+              path="/"
               element={
                 <ProtectedRoute
                   element={Main}
@@ -248,27 +316,29 @@ function App() {
               }
             />
             <Route
-              path='/sign-up'
+              path="/sign-up"
               element={
                 isLoggedIn ? (
-                  <Navigate to='/' />
+                  <Navigate to="/" />
                 ) : (
                   <Register
                     onClose={closeAllPopups}
                     onSignup={onSignup}
+                    isSigningUp={isSigningUp}
                   />
                 )
               }
             />
             <Route
-              path='/sign-in'
+              path="/sign-in"
               element={
                 isLoggedIn ? (
-                  <Navigate to='/' />
+                  <Navigate to="/" />
                 ) : (
                   <Login
                     onClose={closeAllPopups}
-                    onSignup={onSignup}
+                    onSignin={onSignin}
+                    isLoggingIn={isLoggingIn}
                   />
                 )
               }
@@ -301,7 +371,11 @@ function App() {
             onCardDelete={handleCardDelete}
           />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={onSuccess} />
+          <InfoTooltip
+            isOpen={isInfoTooltipPopupOpen}
+            onClose={closeAllPopups}
+            isSuccess={onSuccess}
+          />
         </div>
       </div>
     </CurrentUserContext.Provider>

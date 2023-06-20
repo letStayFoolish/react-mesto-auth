@@ -16,10 +16,10 @@
 
 .form-login__button:hover,
 .form-login__button:focus {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 320px) {
   .form-login__button {
     font-size: 16px;
     line-height: calc(19 / 16);

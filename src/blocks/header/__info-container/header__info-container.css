@@ -1,0 +1,9 @@
+.header__info-container {
+    display: flex;
+}
+
+@media (max-width: 641px) {
+    .header__info-container {
+        display: none;
+    }
+}

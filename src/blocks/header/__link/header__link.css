@@ -10,12 +10,10 @@
 
 .header__link:hover,
 .header__link:focus {
-  opacity: 0.8;
-  text-decoration: underline;
-  outline: none;
+  opacity: 0.6;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 641px) {
   .header__link {
     font-size: 14px;
     line-height: calc(17 / 14);
