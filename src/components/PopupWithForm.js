@@ -1,8 +1,8 @@
-// Creating global PopupWithForm component with all its props, so we can create an
+// Creating global PopupWithForm component with all its props, so we can create a
 // unique popup by typing in a new: title, name, and so on...
-// We are using isOpen conditional operator so we can add or remove additional class name to the
+// We are using isOpen conditional operator so, we can add or remove additional class name to the
 // popup, so it becomes visible or hidden.
-export default function PopupWithForm({
+const PopupWithForm = ({
   title,
   name,
   buttonText,
@@ -11,7 +11,7 @@ export default function PopupWithForm({
   isOpen,
   onClose,
   onSubmit,
-}) {
+}) => {
   return (
     <div
       // onKeyDown={escFunction}
@@ -45,4 +45,5 @@ export default function PopupWithForm({
       </div>
     </div>
   );
-}
+};
+export default PopupWithForm;

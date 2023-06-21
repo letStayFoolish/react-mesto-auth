@@ -1,8 +1,8 @@
 import logo from "../images/header-logo.svg";
-import { useLocation, Link } from "react-router-dom";
 import React, { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 
-export default function Header({ emailShow, handleSignOut }) {
+const Header = ({ emailShow, handleSignOut }) => {
   const [isBurgerMenuActive, setIsBurgerMenuActive] = useState(false);
   const location = useLocation();
   function showNavbar() {
@@ -56,4 +56,5 @@ export default function Header({ emailShow, handleSignOut }) {
       )}
     </header>
   );
-}
+};
+export default Header;

@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
-import Input from './Input';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import Popup from './Popup';
+import React, { useState, useContext, useEffect } from "react";
+import PopupWithForm from "./PopupWithForm";
+import Input from "./Input";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Popup from "./Popup";
 
 const EditProfilePopup = ({
   isOpen,
@@ -12,14 +12,14 @@ const EditProfilePopup = ({
   handleKeyUp,
 }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser, isOpen]);
-  // Function to update user name and user description on submit
+  // Function to update username and user description on submit
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -29,7 +29,7 @@ const EditProfilePopup = ({
     });
   }
 
-  // Handler to set user name based on input value
+  // Handler to set username based on input value
   const handleSetName = (e) => {
     setName(e.target.value);
   };
@@ -44,37 +44,37 @@ const EditProfilePopup = ({
       <PopupWithForm
         isOpen={isOpen}
         onClose={onClose}
-        name='user'
-        title='Редактировать профил'
-        buttonText={isSaving ? 'Сохранение...' : 'Сохранить'}
-        formName='profile-form'
+        name="user"
+        title="Редактировать профил"
+        buttonText={isSaving ? "Сохранение..." : "Сохранить"}
+        formName="profile-form"
         onSubmit={handleSubmit}
         handleKeyUp={handleKeyUp}
       >
         <>
           <Input
-            labelClassName='form__field form__field_row_first'
+            labelClassName="form__field form__field_row_first"
             value={name}
             onChange={handleSetName}
-            name='popup-username'
-            id='username'
-            type='text'
-            placeholder='name'
-            className='popup__input popup__user-name form__input'
-            minLength='2'
-            maxLength='40'
+            name="popup-username"
+            id="username"
+            type="text"
+            placeholder="name"
+            className="popup__input popup__user-name form__input"
+            minLength="2"
+            maxLength="40"
           />
           <Input
-            labelClassName='form__field form__field_row_second'
+            labelClassName="form__field form__field_row_second"
             value={description}
             onChange={handleSetDescription}
-            name='popup-occupation'
-            id='occupation'
-            type='text'
-            placeholder='occupation'
-            className='popup__input popup__occupation form__input'
-            minLength='2'
-            maxLength='2000'
+            name="popup-occupation"
+            id="occupation"
+            type="text"
+            placeholder="occupation"
+            className="popup__input popup__occupation form__input"
+            minLength="2"
+            maxLength="2000"
           />
         </>
       </PopupWithForm>

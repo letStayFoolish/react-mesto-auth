@@ -6,7 +6,7 @@
 
 ### A simple interactive single-page service written on React.js
 
-## Functionality:
+## Functionality
 
 - Edit user's avatar and profile information;
 - Add photos and likes;
@@ -16,11 +16,15 @@
 
 <hr>
 
-## Screenshots:
-<details><summary><b>Show all</b></summary>
+## Screenshots
 <img src="./src/images/Screen.png" width="100%">
+<details><summary><b>Show all</b></summary>
 <img src="./src/images/SIGN_UP.png" width="100%">
 <img src="./src/images/LOG_IN.png" width="100%">
+<img src="./src/images/wallpapers/SUCCESS.png" width="100%">
+<img src="./src/images/wallpapers/FAIL.png" width="100%">
+<img src="./src/images/wallpapers/main-popup_1280.png" width="100%">
+<img src="./src/images/wallpapers/main-burger.png" width="50%"><img src="./src/images/wallpapers/MOBILE-main.png" width="50%">
 </details>
 
 <hr>

@@ -18,28 +18,29 @@ import * as auth from "../utils/auth";
 
 function App() {
   // React Hooks - useState:
-  // Handler to change button text while saving user information
+  // --- ON BUTTONS TEXT CHANGING ---
+  // State to change button text while saving user information
   const [isSavingEditProfilePopup, setIsSavingEditProfilePopup] =
     useState(false);
-  // Handler to change button text Log-in -> Logging-in:
+  // State to change button text Log-in -> Logging-in...:
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  // Handler to change button text Sign-up -> Signing-up:
+  // State to change button text Sign-up -> Signing-up...:
   const [isSigningUp, setIsSigningUp] = useState(false);
-  // Handler to change button text Log-in -> Logging-in:
-  // Handler to change button text while adding new card(place)
+  // State to change button text while adding new card(place):
   const [isSavingAddPlacePopup, setIsSavingAddPlacePopup] = useState(false);
-  // Handler to change button text while saving user information
+  // State to change button text while saving user information
   const [isSavingEditAvatarPopup, setIsSavingEditAvatarPopup] = useState(false);
-  // Handler to change button text while deleting card
+  // State to change button text while deleting card
   const [isSavingConfirmationPopup, setIsSavingConfirmationPopup] =
     useState(false);
-  // Handler to change user's state logged-in or not:
-  // !!! Change default state isLoggedIn: false -> null
+  // --- LOG-IN/SIGN-UP INFO ---
+  // State to change user's state if user is logged-in or not:
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // Handler to change popup-info text and image based on registration success:
+  // State to change popup-info text and image based on registration success:
   const [onSuccess, setOnSuccess] = useState(false);
-  // Handler to get email from API data to show it on main page (header):
+  // State to get email from API data and show it on main page (header):
   const [emailShow, setEmailShow] = useState(null);
+  // POPUP SECTION
   // State to open/close popup with information about success registration:
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   // State to open/close popup for profile editing:
@@ -55,14 +56,14 @@ function App() {
   // State to set default values for username, user occupation & user avatar(as a default there should not be an image):
   const [currentUser, setCurrentUser] = useState({
     name: "Chili",
-    about: "Outdoorist | Traveler | Student",
+    about: "Fronted developer | Traveler | Student",
     avatar: "",
   });
   // State to set default card array as an empty array:
   const [cards, setCards] = useState([]);
   // State to remove card:
   const [removedCard, setRemovedCard] = useState(null);
-  // Navigate state to navigate user to another page:
+  // State to navigate user to another page:
   const navigate = useNavigate();
   // React Hook - useEffect, using this hook, firstly we do:
   // 1. Fetching profile and card data as well, all at once,
@@ -87,7 +88,11 @@ function App() {
         )
       );
   }, []);
-  // Handler functions:
+  // State to authenticate user's token:
+  useEffect(() => {
+    checkToken();
+  }, []);
+  // --- HANDLER FUNCTIONS ---
   // Handler-function to toggle true/false on popup for profile editing, so it opens or closes:
   function handleEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
@@ -100,20 +105,16 @@ function App() {
   function handleEditAvatarPopupOpen() {
     setIsEditAvatarPopupOpen(true);
   }
-  // Handler-function to toggle true/false on popup to confirm while deleting card, so it opens or closes:
+  // Handler-function to toggle true/false on popup, to confirm while removing a card, so it opens or closes:
   function handleConfirmationPopupOpen(card) {
     setRemovedCard(card);
     setIsConfirmationPopupOpen(true);
   }
-  // Handler-function
+  // Handler-function to open info tooltip popup after pressing "register"-button:
   function handleInfoTooltipPopupOpen() {
     setIsInfoTooltipPopupOpen(true);
   }
-  // Function to change state isLoggingIn from false to true:
-  function handleIsLoggedIn() {
-    setIsLoggedIn(true);
-  }
-  // Function to add/remove card like, requesting and receiving response from api:
+  // Handler-function to add/remove like/s on card/s, requesting and receiving response from API:
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
     if (isLiked) {
@@ -142,7 +143,8 @@ function App() {
         );
     }
   };
-  // Function to close all popups on-click on close button
+  // --- ON CLOSE BUTTON ---
+  // Function to close all popup/s on-click on close button
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -151,7 +153,16 @@ function App() {
     setIsConfirmationPopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
   }
-  // Function to remove card, requesting and receiving response from api
+  // --- ON SIGN-OUT ---
+  // Handler-function on sign-out button pressed:
+  function handleSignOut() {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    navigate("/sign-in", { replace: true });
+    setEmailShow("");
+  }
+  // --- INTERACTION WITH API SECTION ---
+  // Handler-function to remove card/s, requesting and receiving response from API:
   const handleCardDelete = (card) => {
     setIsSavingConfirmationPopup(true);
     api
@@ -169,7 +180,7 @@ function App() {
       )
       .finally(() => setIsSavingConfirmationPopup(false));
   };
-  // Function to change profile name and description on submit
+  // Handler-function to change user's name and description on submit
   function handleUpdateUser({ name, about }) {
     setIsSavingEditProfilePopup(true);
     api
@@ -190,7 +201,7 @@ function App() {
       )
       .finally(() => setIsSavingEditProfilePopup(false));
   }
-  // Function to update profile avatar
+  // Handler-function to update user's avatar
   function handleUpdateAvatar({ avatar }) {
     setIsSavingEditAvatarPopup(true);
     api
@@ -208,7 +219,7 @@ function App() {
       )
       .finally(() => setIsSavingEditAvatarPopup(false));
   }
-  // Function to add new place on submit
+  // Handler-function to add new place on submit
   function handleAddPlaceSubmit({ name, link }) {
     setIsSavingAddPlacePopup(true);
     api
@@ -224,7 +235,7 @@ function App() {
       )
       .finally(() => setIsSavingAddPlacePopup(false));
   }
-  // Function to send new user's email and password to API so we could send user on log-in page on a successful registration
+  // Function to send new user's email and password to API, so user could move to log-in page on a successful registration
   function onSignup(email, password) {
     if (!email || !password) {
       // window.alert('Please fill in all fields')
@@ -247,7 +258,7 @@ function App() {
       });
   }
   // Function to make user get logged-in
-  function onSignin(email, password) {
+  function onSignIn(email, password) {
     if (!email || !password) {
       return;
     }
@@ -281,17 +292,6 @@ function App() {
         console.error(`Error: ${error.message}`);
       });
   };
-  // State to authenticate user's token:
-  useEffect(() => {
-    checkToken();
-  }, []);
-  // Function handle on sign-out button pressed:
-  function handleSignOut() {
-    localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    navigate("/sign-in", { replace: true });
-    setEmailShow("");
-  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -337,7 +337,7 @@ function App() {
                 ) : (
                   <Login
                     onClose={closeAllPopups}
-                    onSignin={onSignin}
+                    onSignIn={onSignIn}
                     isLoggingIn={isLoggingIn}
                   />
                 )
