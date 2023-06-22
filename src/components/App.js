@@ -70,24 +70,26 @@ function App() {
   // 2. Once we got response from API, we are setting profile information: username, user occupation, user avatar and card information (name, link, id, ...)
   // As a second argument of useEffect State, we set an empty array '[]', so this shall be called only once as we got in or refresh a page.
   useEffect(() => {
-    const userInformationPromise = api.getUserInformation();
-    const initialCardsPromise = api.getInitialCards();
-    Promise.all([userInformationPromise, initialCardsPromise])
-      .then(([userInformation, cardsInformation]) => {
-        setCurrentUser({
-          ...userInformation,
-          name: userInformation.name,
-          about: userInformation.about,
-          avatar: userInformation.avatar,
-        });
-        setCards(cardsInformation);
-      })
-      .catch((error) =>
-        console.error(
-          `Error while requesting to GET profile and cards information from API: ${error.message}`
-        )
-      );
-  }, []);
+    if (isLoggedIn) {
+      const userInformationPromise = api.getUserInformation();
+      const initialCardsPromise = api.getInitialCards();
+      Promise.all([userInformationPromise, initialCardsPromise])
+        .then(([userInformation, cardsInformation]) => {
+          setCurrentUser({
+            ...userInformation,
+            name: userInformation.name,
+            about: userInformation.about,
+            avatar: userInformation.avatar,
+          });
+          setCards(cardsInformation);
+        })
+        .catch((error) =>
+          console.error(
+            `Error while requesting to GET profile and cards information from API: ${error.message}`
+          )
+        );
+    }
+  }, [isLoggedIn]);
   // State to authenticate user's token:
   useEffect(() => {
     checkToken();
@@ -277,20 +279,22 @@ function App() {
   // Function to keep user logged-in if his token is already stored:
   const checkToken = () => {
     const token = localStorage.getItem("jwt");
-    auth
-      .getContent(token)
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        setIsLoggedIn(true);
-        navigate("/", { replace: true });
-        setEmailShow(data.data.email);
-      })
-      .catch((error) => {
-        setIsLoggedIn(false);
-        console.error(`Error: ${error.message}`);
-      });
+    if (token) {
+      auth
+        .getContent(token)
+        .then((data) => {
+          if (!data) {
+            return;
+          }
+          setIsLoggedIn(true);
+          navigate("/", { replace: true });
+          setEmailShow(data.data.email);
+        })
+        .catch((error) => {
+          setIsLoggedIn(false);
+          console.error(`Error: ${error.message}`);
+        });
+    }
   };
 
   return (
@@ -342,6 +346,10 @@ function App() {
                   />
                 )
               }
+            />
+            <Route
+              path="*"
+              element={<Navigate to={!isLoggedIn ? "/sign-in" : "/"} />}
             />
           </Routes>
           <Footer />

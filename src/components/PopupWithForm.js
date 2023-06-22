@@ -31,7 +31,7 @@ const PopupWithForm = ({
             action="#"
             name={formName}
             className={`popup__form popup__form_type_${name} form`}
-            noValidate
+            // noValidate
           >
             {children}
             <button

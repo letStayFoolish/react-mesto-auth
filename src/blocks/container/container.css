@@ -1,5 +1,7 @@
 .container {
     padding: 0 200px;
+    transition: padding .5s ease;
+
 }
 @media (max-width: 1180px) {
     .container {

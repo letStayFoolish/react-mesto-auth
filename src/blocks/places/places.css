@@ -4,6 +4,7 @@
     gap: 20px 17px;
     grid-template-columns: repeat(3, 282px);
     grid-template-rows: repeat(2, 361px);
+    transition: grid-template-columns .5s ease, grid-template-rows .5s ease;
 }
 @media (max-width: 1279px) {
     .places {
