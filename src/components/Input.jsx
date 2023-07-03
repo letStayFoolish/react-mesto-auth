@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const Input = ({
   labelClassName,
   value,
+  error,
   onChange,
   name,
   id,
@@ -26,9 +27,8 @@ const Input = ({
         maxLength={maxLength}
         required
       />
-      {/* <span className='popup__input-error popup__input-error_type_image-name'> */}
-      <span className='popup__input-error'>
-        Необходимо заполнить данное поле
+      <span className="popup__input-error">
+        {error && `Please fill out this field.`}
       </span>
     </label>
   );

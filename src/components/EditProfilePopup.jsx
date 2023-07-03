@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Input from "./Input";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Popup from "./Popup";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import useFormWithValidation from "../hooks/loginForm/useFormWithValidation";
 
 const EditProfilePopup = ({
   isOpen,
@@ -11,33 +12,29 @@ const EditProfilePopup = ({
   isSaving,
   handleKeyUp,
 }) => {
+  const { values, errors, setValues, handleChange, resetForm } =
+    useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    if (isOpen) {
+      resetForm();
+
+      setValues({
+        name: currentUser.name,
+        about: currentUser.about,
+      });
+    }
   }, [currentUser, isOpen]);
   // Function to update username and user description on submit
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateUser({
-      name,
-      about: description,
+      name: values.name.trim().replace(/\s+/g, " "),
+      about: values.about.trim().replace(/\s+/g, " "),
     });
   }
-
-  // Handler to set username based on input value
-  const handleSetName = (e) => {
-    setName(e.target.value);
-  };
-
-  // Handler to set user description based on input value
-  const handleSetDescription = (e) => {
-    setDescription(e.target.value);
-  };
 
   return (
     <Popup isOpen={isOpen} onClose={onClose}>
@@ -54,27 +51,29 @@ const EditProfilePopup = ({
         <>
           <Input
             labelClassName="form__field form__field_row_first"
-            value={name}
-            onChange={handleSetName}
-            name="popup-username"
+            value={values.name || ""}
+            onChange={handleChange}
+            name="name"
             id="username"
             type="text"
             placeholder="name"
             className="popup__input popup__user-name form__input"
             minLength="2"
             maxLength="40"
+            error={errors.name}
           />
           <Input
             labelClassName="form__field form__field_row_second"
-            value={description}
-            onChange={handleSetDescription}
-            name="popup-occupation"
+            value={values.about || ""}
+            onChange={handleChange}
+            name="about"
             id="occupation"
             type="text"
             placeholder="occupation"
             className="popup__input popup__occupation form__input"
             minLength="2"
             maxLength="2000"
+            error={errors.description}
           />
         </>
       </PopupWithForm>

@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import useFormWithValidation from "../hooks/loginForm/useFormWithValidation";
 
 const Register = ({ onSignup, isSigningUp }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
+  const { values, errors, handleChange } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSignup(email, password);
+
+    onSignup({
+      email: values.email.trim().replace(/\s+/g, " "),
+      password: values.password,
+    });
   }
 
   return (
@@ -26,26 +23,33 @@ const Register = ({ onSignup, isSigningUp }) => {
             className="form-register__input"
             placeholder="Email"
             type="email"
-            minLength="2"
+            minLength="5"
             maxLength="40"
-            onChange={handleChangeEmail}
-            value={email}
+            onChange={handleChange}
+            value={values.email || ""}
             name="email"
             autoComplete="login"
             required
           />
+          <span className="popup__input-error">
+            {errors.email && `Please enter a valid email address`}
+          </span>
           <input
             className="form-register__input"
             placeholder="Пароль"
             type="password"
-            minLength="2"
+            minLength="6"
             maxLength="40"
-            onChange={handleChangePassword}
-            value={password}
+            onChange={handleChange}
+            value={values.password || ""}
             name="password"
             autoComplete="on"
             required
           />
+          <span className="popup__input-error">
+            {errors.password &&
+              `Your password must be at least 8 characters including a lowercase letter, an uppercase letter, and a number`}
+          </span>
         </fieldset>
         <button className="form-register__button">
           {isSigningUp ? "Регистрация..." : "Зарегистрироваться"}

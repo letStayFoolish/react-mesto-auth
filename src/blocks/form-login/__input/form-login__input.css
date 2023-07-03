@@ -16,7 +16,7 @@
   transition: padding .15s ease,box-shadow .3s ease,border-radius .3s ease;
 }
 .form-login__input:not(:last-child) {
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
 }
 
 .form-login__input:focus {

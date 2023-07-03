@@ -17,7 +17,7 @@
 }
 
 .form-register__input:not(:last-child) {
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
 }
 
 .form-register__input:focus {

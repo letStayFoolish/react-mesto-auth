@@ -70,7 +70,7 @@ Run app:
 
 - JavaScript
 
-## Libraries / Environment:
+## Libraries & Frameworks:
 
 - ReactJS
 

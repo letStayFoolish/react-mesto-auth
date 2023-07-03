@@ -1,10 +1,13 @@
 import PopupWithForm from "./PopupWithForm";
 import InputWithRef from "./InputWithRef";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Popup from "./Popup";
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isSaving }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const ref = useRef(null);
+
   // Function to update username and user description on submit
   function handleSubmit(e) {
     e.preventDefault();
@@ -13,6 +16,15 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isSaving }) => {
       avatar: ref.current.value,
     });
   }
+
+  function handleOnInput(e) {
+    if (!e.target.validity.valid) {
+      setErrorMessage(e.target.validationMessage);
+    } else {
+      setErrorMessage("");
+    }
+  }
+
   useEffect(() => {
     ref.current.value = "";
   }, [isOpen]);
@@ -31,12 +43,15 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isSaving }) => {
         <InputWithRef
           labelClassName="form__field form__field_row_second"
           ref={ref}
-          name="popup-avatar-image-link"
+          name="url"
           id="avatar-image-link"
           type="url"
           placeholder="Ссылка на картинку"
           className="popup__input popup__avatar-image-link form__input"
+          onInput={handleOnInput}
+          required
         />
+        <span className="popup__input-error">{errorMessage}</span>
       </PopupWithForm>
     </Popup>
   );

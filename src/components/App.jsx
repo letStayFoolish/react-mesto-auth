@@ -38,7 +38,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // State to change popup-info text and image based on registration success:
   const [onSuccess, setOnSuccess] = useState(false);
-  // State to get email from API data and show it on main page (header):
+  // State to get email from API data and show it on the main page (header):
   const [emailShow, setEmailShow] = useState(null);
   // POPUP SECTION
   // State to open/close popup with information about success registration:
@@ -53,13 +53,13 @@ function App() {
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
   // State to open/close full-screen image on-click, depending on what card is selected:
   const [selectedCard, setSelectedCard] = useState(null);
-  // State to set default values for username, user occupation & user avatar(as a default there should not be an image):
+  // State to set default values for username, user occupation & user avatar (as a default, there should not be an image):
   const [currentUser, setCurrentUser] = useState({
     name: "Chili",
     about: "Fronted developer | Traveler | Student",
     avatar: "",
   });
-  // State to set default card array as an empty array:
+  // State to set a default card array as an empty array:
   const [cards, setCards] = useState([]);
   // State to remove card:
   const [removedCard, setRemovedCard] = useState(null);
@@ -93,6 +93,7 @@ function App() {
   // State to authenticate user's token:
   useEffect(() => {
     checkToken();
+    // eslint-disable-next-line
   }, []);
   // --- HANDLER FUNCTIONS ---
   // Handler-function to toggle true/false on popup for profile editing, so it opens or closes:
@@ -156,7 +157,7 @@ function App() {
     setIsInfoTooltipPopupOpen(false);
   }
   // --- ON SIGN-OUT ---
-  // Handler-function on sign-out button pressed:
+  // Handler-function on sign-out button pressing:
   function handleSignOut() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
@@ -238,7 +239,7 @@ function App() {
       .finally(() => setIsSavingAddPlacePopup(false));
   }
   // Function to send new user's email and password to API, so user could move to log-in page on a successful registration
-  function onSignup(email, password) {
+  function onSignup({ email, password }) {
     if (!email || !password) {
       // window.alert('Please fill in all fields')
       return;
@@ -260,7 +261,7 @@ function App() {
       });
   }
   // Function to make user get logged-in
-  function onSignIn(email, password) {
+  function onSignIn({ email, password }) {
     if (!email || !password) {
       return;
     }
@@ -276,7 +277,7 @@ function App() {
       .catch((error) => console.error(`Error: ${error.message}`))
       .finally(() => setIsLoggingIn(false));
   }
-  // Function to keep user logged-in if his token is already stored:
+  // Function to keep a user logged-in if his token is already stored:
   const checkToken = () => {
     const token = localStorage.getItem("jwt");
     if (token) {

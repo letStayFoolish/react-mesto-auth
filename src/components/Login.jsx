@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import useFormWithValidation from "../hooks/loginForm/useFormWithValidation";
+import React from "react";
 
 const Login = ({ onSignIn, isLoggingIn }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { values, errors, handleChange } = useFormWithValidation();
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
   function handleSubmit(e) {
     e.preventDefault();
-    onSignIn(email, password);
+
+    const { email, password } = values;
+
+    onSignIn({
+      email: email.trim().replace(/\s+/g, " "),
+      password: password,
+    });
   }
 
   return (
@@ -23,27 +23,33 @@ const Login = ({ onSignIn, isLoggingIn }) => {
           <input
             className="form-login__input"
             placeholder="Email"
-            type="email"
-            minLength="2"
-            maxLength="40"
-            onChange={handleChangeEmail}
             name="email"
-            value={email}
+            type="email"
+            value={values.email || ""}
+            onChange={handleChange}
+            minLength="5"
+            maxLength="40"
             autoComplete="login"
             required
           />
+          <span className="popup__input-error">
+            {errors.email && `Please enter a valid email address.`}
+          </span>
           <input
             className="form-login__input"
             placeholder="Пароль"
-            type="password"
-            minLength="2"
-            maxLength="40"
-            onChange={handleChangePassword}
             name="password"
-            value={password}
+            type="password"
+            value={values.password || ""}
+            onChange={handleChange}
+            minLength="6"
+            maxLength="40"
             autoComplete="on"
             required
           />
+          <span className="popup__input-error">
+            {errors.password && `Please enter a valid password.`}
+          </span>
         </fieldset>
         <button className="form-login__button">
           {isLoggingIn ? "Вход в систему..." : "Войти"}
