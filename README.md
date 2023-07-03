@@ -94,8 +94,9 @@ Run app:
 - [Checklist 11](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-11/index.html);
 - [Checklist 12](https://code.s3.yandex.net/web-developer/checklists/new-program/checklist-12/index.html).
 
-## This project is also hosted at
-- [GitHub](https://github.com/letStayFoolish/mesto-react)
+## Deploy
+Check out this website on :
+- [Vercel](https://react-mesto-auth-delta-one.vercel.app/sign-in)
 
 ## License
 
